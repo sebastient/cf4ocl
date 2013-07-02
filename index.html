@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Cf4ocl by FakenMC</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Cf4ocl</h1>
+        <h2>C Framework for OpenCL</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/FakenMC/cf4ocl/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/FakenMC/cf4ocl/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/FakenMC/cf4ocl" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="cf4ocl---c-framework-for-opencl" class="anchor" href="#cf4ocl---c-framework-for-opencl"><span class="octicon octicon-link"></span></a>cf4ocl - C Framework for OpenCL</h1>
+
+<h2>
+<a name="about" class="anchor" href="#about"><span class="octicon octicon-link"></span></a>About</h2>
+
+<p>The C Framework for OpenCL (cf4ocl) is a pure C99 set of libraries and
+utilities for speeding-up the development and benchmarking of OpenCL 
+programs. It's main target platform is Linux, although previous
+versions were sucessfully compiled in Windows with <a href="http://www.mingw.org/">MinGW</a>. 
+The only dependency is <a href="https://developer.gnome.org/glib/">GLib</a> (v2.23
+or newer), the development files of which can be easily installed from
+your distro's package manager. Library code is licensed under <a href="http://www.gnu.org/licenses/lgpl.html">LGPLv3</a>,
+while the remaining code is licensed under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+
+<p>The code is fully commented (docs can be generated with Doxygen, 
+preferably with version 1.8.3 or newer), is compiled with <code>-Wall</code> and
+<code>-Wextra</code> flags, and is veryfied with <a href="http://cppcheck.sourceforge.net/">cppcheck</a>.</p>
+
+<h2>
+<a name="organization" class="anchor" href="#organization"><span class="octicon octicon-link"></span></a>Organization</h2>
+
+<ul>
+<li>
+<strong>Library</strong>
+
+<ul>
+<li>CL Utils</li>
+<li>CL Profiler</li>
+<li>GError framework</li>
+</ul>
+</li>
+<li>
+<strong>Library tests</strong>
+
+<ul>
+<li>CL Profiler</li>
+<li>GError framework</li>
+</ul>
+</li>
+<li>
+<strong>Utilities</strong>
+
+<ul>
+<li>Device query</li>
+<li>Kernel info</li>
+</ul>
+</li>
+<li>
+<strong>Examples</strong>
+
+<ul>
+<li>Bank conflicts test</li>
+<li>Matrix multiplication</li>
+</ul>
+</li>
+</ul><h2>
+<a name="library" class="anchor" href="#library"><span class="octicon octicon-link"></span></a>Library</h2>
+
+<h3>
+<a name="cl-utils" class="anchor" href="#cl-utils"><span class="octicon octicon-link"></span></a>CL Utils</h3>
+
+<ul>
+<li>Create/initialize OpenCL objects such as plaform, device, context, 
+command queues, devices, and so on with just one instruction (also one
+instruction for freeing/releasing these objects).</li>
+<li>Build an OpenCL program with one instruction by passing an array of
+filenames containing the kernels.</li>
+<li>Automatic or manual device selecion.</li>
+<li>Doesn't hide OpenCL objects from you.</li>
+</ul><h3>
+<a name="cl-profiler" class="anchor" href="#cl-profiler"><span class="octicon octicon-link"></span></a>CL Profiler</h3>
+
+<ul>
+<li>Get detailed profiling information about OpenCL events, including
+relative and absolute times.</li>
+<li>Supports multiple command queues and overlapping events (e.g. such
+as simultaneous kernel execution and data transfer).</li>
+</ul><h3>
+<a name="gerror-framework" class="anchor" href="#gerror-framework"><span class="octicon octicon-link"></span></a>GError framework</h3>
+
+<ul>
+<li>Generic C error handling framework based on GError object from GLib.</li>
+<li>Just two macros.</li>
+</ul><h2>
+<a name="utilities" class="anchor" href="#utilities"><span class="octicon octicon-link"></span></a>Utilities</h2>
+
+<h3>
+<a name="device-query" class="anchor" href="#device-query"><span class="octicon octicon-link"></span></a>Device query</h3>
+
+<p>Simple implementation of a program for querying available OpenCL
+platforms and devices with clean and useful output.</p>
+
+<h3>
+<a name="kernel-info" class="anchor" href="#kernel-info"><span class="octicon octicon-link"></span></a>Kernel info</h3>
+
+<p>Static analysis of OpenCL kernels.</p>
+
+<h2>
+<a name="how-to-use-the-library" class="anchor" href="#how-to-use-the-library"><span class="octicon octicon-link"></span></a>How to use the library</h2>
+
+<p>Take a look at the examples, utilities and tests to see how the 
+library can be used.</p>
+
+<h2>
+<a name="other-useful-c-frameworksutilities-for-opencl" class="anchor" href="#other-useful-c-frameworksutilities-for-opencl"><span class="octicon octicon-link"></span></a>Other useful C frameworks/utilities for OpenCL</h2>
+
+<ul>
+<li><a href="http://code.google.com/p/simple-opencl/">Simple OpenCL</a></li>
+<li><a href="https://github.com/Oblomov/CLU">The OpenCL utility library</a></li>
+<li><a href="https://github.com/Computing-Language-Utility/CLU">Computing Language Utility</a></li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
