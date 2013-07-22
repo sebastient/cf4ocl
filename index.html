@@ -29,26 +29,38 @@
     <div class="container">
       <section id="main_content">
         <h1>
-<a name="cf4ocl---c-framework-for-opencl" class="anchor" href="#cf4ocl---c-framework-for-opencl"><span class="octicon octicon-link"></span></a>cf4ocl - C Framework for OpenCL</h1>
-
-<h2>
-<a name="about" class="anchor" href="#about"><span class="octicon octicon-link"></span></a>About</h2>
+<a name="summary" class="anchor" href="#summary"><span class="octicon octicon-link"></span></a>Summary</h1>
 
 <p>The C Framework for OpenCL (cf4ocl) is a pure C99 set of libraries and
-utilities for speeding-up the development and benchmarking of OpenCL 
-programs. Its main target platform is Linux, although previous
-versions were successfully compiled in Windows with <a href="http://www.mingw.org/">MinGW</a>. 
-The only dependency is <a href="https://developer.gnome.org/glib/">GLib</a> (v2.23
-or newer), the development files of which can be easily installed from
-your distro's package manager. Library code is licensed under <a href="http://www.gnu.org/licenses/lgpl.html">LGPLv3</a>,
-while the remaining code is licensed under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+utilities with the goal of facilitating: 1) the rapid development of 
+OpenCL C programs; 2) the benchmark of OpenCL events, such as kernel 
+execution and data transfers; and, 3) analysis of the OpenCL 
+environment and kernel requirements.</p>
 
-<p>The code is fully commented (docs can be generated with Doxygen, 
-preferably with version 1.8.3 or newer), is compiled with <code>-Wall</code> and
-<code>-Wextra</code> flags, and is verified with <a href="http://cppcheck.sourceforge.net/">cppcheck</a>.</p>
+<p>cf4ocl is composed of four parts: i) library; ii) command-line 
+utilities; iii) unit tests; and, iv) examples. The library offers 
+functions which aim to achieve goals 1) and 2). The command-line 
+utilities are focused on goal 3). The unit tests aim to verify that the 
+library functions are working properly. Finally, the examples show how 
+to integrate the library functions in fully working OpenCL programs.</p>
+
+<p>The target platform of cf4ocl is Linux, although, being pure C99, it 
+can be compiled to other platforms as long as the dependencies, 
+<a href="https://developer.gnome.org/glib/" title="GLib">GLib</a> and <a href="http://www.khronos.org/opencl/" title="OpenCL">OpenCL</a>, are met. The reference compiler is GCC with 
+<code>-Wall</code> and <code>-Wextra</code> flags activated. The code is verified with 
+<a href="http://cppcheck.sourceforge.net/" title="cppcheck">cppcheck</a> and is fully commented. API documentation can be generated 
+with <a href="http://www.doxygen.org/%E2%80%8E" title="Doxygen">Doxygen</a>.</p>
+
+<p>Library code is licensed under <a href="http://www.gnu.org/licenses/lgpl.html)" title="LGPLv3">LGPLv3</a>, while the remaining code is 
+licensed under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+
+
+
+<h1>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <h2>
-<a name="organization" class="anchor" href="#organization"><span class="octicon octicon-link"></span></a>Organization</h2>
+<a name="structure" class="anchor" href="#structure"><span class="octicon octicon-link"></span></a>Structure</h2>
 
 <ul>
 <li>
@@ -112,6 +124,7 @@ as simultaneous kernel execution and data transfer).</li>
 <ul>
 <li>Generic C error handling framework based on GError object from GLib.</li>
 <li>Just two macros.</li>
+<li>Required by CL Utils and CL Profiler.</li>
 </ul><h2>
 <a name="utilities" class="anchor" href="#utilities"><span class="octicon octicon-link"></span></a>Utilities</h2>
 
@@ -126,20 +139,128 @@ platforms and devices with clean and useful output.</p>
 
 <p>Static analysis of OpenCL kernels.</p>
 
-<h2>
-<a name="how-to-use-the-library" class="anchor" href="#how-to-use-the-library"><span class="octicon octicon-link"></span></a>How to use the library</h2>
-
-<p>Take a look at the examples, utilities and tests to see how the 
-library can be used.</p>
+<h1>
+<a name="how-to-use-cf4ocl" class="anchor" href="#how-to-use-cf4ocl"><span class="octicon octicon-link"></span></a>How to use cf4ocl</h1>
 
 <h2>
-<a name="other-useful-c-frameworksutilities-for-opencl" class="anchor" href="#other-useful-c-frameworksutilities-for-opencl"><span class="octicon octicon-link"></span></a>Other useful C frameworks/utilities for OpenCL</h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>In order to compile cf4ocl and use it in projects, two dependencies are
+required: 1) <a href="http://www.khronos.org/opencl/" title="OpenCL">OpenCL</a>; and, 2) <a href="https://developer.gnome.org/glib/" title="GLib">GLib</a> (v2.32 or newer).</p>
+
+<h3>
+<a name="opencl" class="anchor" href="#opencl"><span class="octicon octicon-link"></span></a>OpenCL</h3>
+
+<p>The OpenCL headers (for compiling) and shared library (for linking) can
+be installed from the packages offered by different OpenCL vendors such
+as <a href="http://developer.amd.com/tools-and-sdks/heterogeneous-computing/amd-accelerated-parallel-processing-app-sdk/" title="AMD">AMD</a>, <a href="http://software.intel.com/en-us/vcsource/tools/opencl-sdk" title="Intel">Intel</a> or <a href="https://developer.nvidia.com/category/zone/cuda-zone" title="Nvidia">Nvidia</a>. </p>
+
+<p>Alternatively, it is possible to install an OpenCL development 
+environment in a some recent Linux distributions. For example, in Debian
+7 and Ubuntu 13.04:</p>
+
+<pre><code>$ sudo apt-get install ocl-icd-opencl-dev
+</code></pre>
+
+<p>This will install the headers and shared library system-wide, avoiding 
+the need to specify their location to GCC. However, to actually run an 
+OpenCL program it is necessary to have a vendor implementation 
+installed.</p>
+
+<h3>
+<a name="glib" class="anchor" href="#glib"><span class="octicon octicon-link"></span></a>GLib</h3>
+
+<p>The simplest way to install <a href="https://developer.gnome.org/glib/" title="GLib">GLib</a> is using the package manager of
+the Linux distribution. For Debian and Ubuntu:</p>
+
+<pre><code>$ sudo apt-get install libglib2.0-dev
+</code></pre>
+
+<p>It is also advisable to install the <code>libglib2.0-0-dbg</code> or equivalent
+package to allow debugging at the GLib level.</p>
+
+<h2>
+<a name="library-utilities-tests-and-examples" class="anchor" href="#library-utilities-tests-and-examples"><span class="octicon octicon-link"></span></a>Library, utilities, tests and examples</h2>
+
+<p>Assuming a working development environment with OpenCL and GLib 
+properly setup, to build everything it is simply necessary to run <code>make</code>
+within the cf4ocl directory.</p>
+
+<p>It is possible to build only specific targets, for example:</p>
+
+<pre><code>$ make library
+$ make utils
+$ make tests
+$ make examples
+</code></pre>
+
+<p>If the build failed, confirm if OpenCL and GLib are properly installed,
+and if GCC can find the OpenCL headers and shared library. If not,
+set the headers location in the <code>CLINCLUDES</code> Makefile variable, and set
+the shared library location in the <code>CLLIBDIR</code> Makefile variable.</p>
+
+<h2>
+<a name="using-the-library-in-a-new-project" class="anchor" href="#using-the-library-in-a-new-project"><span class="octicon octicon-link"></span></a>Using the library in a new project</h2>
+
+<h3>
+<a name="compiling-and-linking" class="anchor" href="#compiling-and-linking"><span class="octicon octicon-link"></span></a>Compiling and linking</h3>
+
+<p>When building a program based on cf4ocl (or any OpenCL program) with 
+GCC, it may be necessary to specify the location of the OpenCL headers 
+with the <code>-I</code> flag, and the location of the shared library 
+(libOpenCL.so) with the <code>-L</code> flag. If the OpenCL development files were
+installed from the package manager (e.g. the <code>ocl-icd-opencl-dev</code> 
+package in Debian and Ubuntu), this is usually not required.</p>
+
+<p>In order to <strong>compile</strong> with GLib (required by cf4ocl), the following 
+line should be added to the GCC syntax:</p>
+
+<pre><code>`pkg-config --cflags glib-2.0`
+</code></pre>
+
+<p>In order to <strong>link</strong> with GLib (required by cf4ocl), it is necessary to 
+add the following line to the GCC syntax:</p>
+
+<pre><code>`pkg-config --libs glib-2.0`
+</code></pre>
+
+<p>These two lines will expand correctly to the <code>-I</code> and <code>-l</code> flags 
+required for compiling and linking, respectively.</p>
+
+<h3>
+<a name="tutorial" class="anchor" href="#tutorial"><span class="octicon octicon-link"></span></a>Tutorial</h3>
+
+<p>A tutorial will be available soon. For now take a look at the examples, 
+utilities and tests to see how the library can be used. You can use
+just one part of the library, but both CL Profiler 
+(<a href="https://github.com/FakenMC/cf4ocl/blob/master/clprofiler.c">clprofiler.c</a> 
+and <a href="https://github.com/FakenMC/cf4ocl/blob/master/clprofiler.h">clprofiler.h</a>) 
+and CL Utils (<a href="https://github.com/FakenMC/cf4ocl/blob/master/clutils.c">clutils.c</a>
+and <a href="https://github.com/FakenMC/cf4ocl/blob/master/clutils.h">clutils.h</a>) 
+require the GError framework (<a href="https://github.com/FakenMC/cf4ocl/blob/master/gerrorf.h">gerrorf.h</a>).</p>
+
+<h2>
+<a name="generating-the-api-documentation" class="anchor" href="#generating-the-api-documentation"><span class="octicon octicon-link"></span></a>Generating the API documentation</h2>
+
+<p>The API documentation can be generated with <a href="http://www.doxygen.org/%E2%80%8E" title="Doxygen">Doxygen</a> (version 1.8 or
+newer). In the cf4ocl directory run:</p>
+
+<pre><code>$ doxygen
+</code></pre>
+
+<p>The documentation will be generated in the <code>./doc</code> folder.</p>
+
+<h1>
+<a name="other-useful-c-frameworksutilities-for-opencl" class="anchor" href="#other-useful-c-frameworksutilities-for-opencl"><span class="octicon octicon-link"></span></a>Other useful C frameworks/utilities for OpenCL</h1>
+
+<p>If cf4ocl does not meet your requirements, take a look at the following
+projects:</p>
 
 <ul>
-<li><a href="http://code.google.com/p/simple-opencl/">Simple OpenCL</a></li>
-<li><a href="https://github.com/Oblomov/CLU">The OpenCL utility library</a></li>
-<li><a href="https://github.com/Computing-Language-Utility/CLU">Computing Language Utility</a></li>
-<li><a href="http://tuxfan.github.io/ocl-mla/">OCL-MLA</a></li>
+<li><a href="http://code.google.com/p/simple-opencl/" title="Simple OpenCL">Simple OpenCL</a></li>
+<li><a href="https://github.com/Oblomov/CLU" title="The OpenCL utility library">The OpenCL utility library</a></li>
+<li><a href="https://github.com/Computing-Language-Utility/CLU" title="Computing Language Utility">Computing Language Utility</a></li>
+<li><a href="http://tuxfan.github.io/ocl-mla/" title="OCL-MLA">OCL-MLA</a></li>
 </ul>
       </section>
     </div>
