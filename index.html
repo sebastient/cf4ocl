@@ -54,13 +54,40 @@ with <a href="http://www.doxygen.org/%E2%80%8E" title="Doxygen">Doxygen</a>.</p>
 <p>Library code is licensed under <a href="http://www.gnu.org/licenses/lgpl.html)" title="LGPLv3">LGPLv3</a>, while the remaining code is 
 licensed under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
 
+<h1>
+<a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of contents</h1>
 
+<p>1.  <a href="#introduction">Introduction</a><br>
+1.1.  <a href="#structure">Structure</a><br>
+1.2.  <a href="#library">Library</a><br>
+1.2.1.  <a href="#clutils">CL Utils</a><br>
+1.2.2.  <a href="#clprofiler">CL Profiler</a><br>
+1.2.3.  <a href="#gerrorframework">GError framework</a><br>
+1.3.  <a href="#utilities">Utilities</a><br>
+1.3.1.  <a href="#devicequery">Device query</a><br>
+1.3.2.  <a href="#kernelinfo">Kernel info</a><br>
+2.  <a href="#howtousecf4ocl">How to use cf4ocl</a><br>
+2.1.  <a href="#dependencies">Dependencies</a><br>
+2.1.1.  <a href="#opencl">OpenCL</a><br>
+2.1.2.  <a href="#glib">GLib</a><br>
+2.2.  <a href="#libraryutilitiestestsandexamples">Library, utilities, tests and examples</a><br>
+2.3.  <a href="#usingthelibraryinanewproject">Using the library in a new project</a><br>
+2.3.1.  <a href="#compilingandlinking">Compiling and linking</a><br>
+2.3.2.  <a href="#usingclutils">Using CL Utils</a><br>
+2.3.3.  <a href="#usingclprofiler">Using CL Profiler</a><br>
+2.3.4.  <a href="#usinggerrorframeworkgerrorf">Using GError Framework (GErrorF)</a><br>
+2.4.  <a href="#generatingtheapidocumentation">Generating the API documentation</a><br>
+3.  <a href="#otherusefulcframeworks/utilitiesforopencl">Other useful C frameworks/utilities for OpenCL</a>  </p>
+
+<p><a name="introduction"></a></p>
 
 <h1>
-<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
+<a name="1-introduction" class="anchor" href="#1-introduction"><span class="octicon octicon-link"></span></a>1. Introduction</h1>
+
+<p><a name="structure"></a></p>
 
 <h2>
-<a name="structure" class="anchor" href="#structure"><span class="octicon octicon-link"></span></a>Structure</h2>
+<a name="11-structure" class="anchor" href="#11-structure"><span class="octicon octicon-link"></span></a>1.1. Structure</h2>
 
 <ul>
 <li>
@@ -96,11 +123,15 @@ licensed under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
 <li>Matrix multiplication</li>
 </ul>
 </li>
-</ul><h2>
-<a name="library" class="anchor" href="#library"><span class="octicon octicon-link"></span></a>Library</h2>
+</ul><p><a name="library"></a></p>
+
+<h2>
+<a name="12-library" class="anchor" href="#12-library"><span class="octicon octicon-link"></span></a>1.2. Library</h2>
+
+<p><a name="clutils"></a></p>
 
 <h3>
-<a name="cl-utils" class="anchor" href="#cl-utils"><span class="octicon octicon-link"></span></a>CL Utils</h3>
+<a name="121-cl-utils" class="anchor" href="#121-cl-utils"><span class="octicon octicon-link"></span></a>1.2.1. CL Utils</h3>
 
 <ul>
 <li>Create/initialize OpenCL objects such as platform, device, context, 
@@ -109,47 +140,63 @@ instruction for freeing/releasing these objects).</li>
 <li>Build an OpenCL program with one instruction by passing an array of
 filenames containing the kernels.</li>
 <li>Automatic or manual device selection.</li>
-<li>Doesn't hide OpenCL objects from you.</li>
-</ul><h3>
-<a name="cl-profiler" class="anchor" href="#cl-profiler"><span class="octicon octicon-link"></span></a>CL Profiler</h3>
+<li>Doesn't hide OpenCL objects from the client programmer.</li>
+</ul><p><a name="clprofiler"></a></p>
+
+<h3>
+<a name="122-cl-profiler" class="anchor" href="#122-cl-profiler"><span class="octicon octicon-link"></span></a>1.2.2. CL Profiler</h3>
 
 <ul>
 <li>Get detailed profiling information about OpenCL events, including
 relative and absolute times.</li>
 <li>Supports multiple command queues and overlapping events (e.g. such
 as simultaneous kernel execution and data transfer).</li>
-</ul><h3>
-<a name="gerror-framework" class="anchor" href="#gerror-framework"><span class="octicon octicon-link"></span></a>GError framework</h3>
+</ul><p><a name="gerrorframework"></a></p>
+
+<h3>
+<a name="123-gerror-framework" class="anchor" href="#123-gerror-framework"><span class="octicon octicon-link"></span></a>1.2.3. GError framework</h3>
 
 <ul>
 <li>Generic C error handling framework based on GError object from GLib.</li>
 <li>Just two macros.</li>
 <li>Required by CL Utils and CL Profiler.</li>
-</ul><h2>
-<a name="utilities" class="anchor" href="#utilities"><span class="octicon octicon-link"></span></a>Utilities</h2>
+</ul><p><a name="utilities"></a></p>
+
+<h2>
+<a name="13-utilities" class="anchor" href="#13-utilities"><span class="octicon octicon-link"></span></a>1.3. Utilities</h2>
+
+<p><a name="devicequery"></a></p>
 
 <h3>
-<a name="device-query" class="anchor" href="#device-query"><span class="octicon octicon-link"></span></a>Device query</h3>
+<a name="131-device-query" class="anchor" href="#131-device-query"><span class="octicon octicon-link"></span></a>1.3.1. Device query</h3>
 
 <p>Simple implementation of a program for querying available OpenCL
 platforms and devices with clean and useful output.</p>
 
+<p><a name="kernelinfo"></a></p>
+
 <h3>
-<a name="kernel-info" class="anchor" href="#kernel-info"><span class="octicon octicon-link"></span></a>Kernel info</h3>
+<a name="132-kernel-info" class="anchor" href="#132-kernel-info"><span class="octicon octicon-link"></span></a>1.3.2. Kernel info</h3>
 
 <p>Static analysis of OpenCL kernels.</p>
 
+<p><a name="howtousecf4ocl"></a></p>
+
 <h1>
-<a name="how-to-use-cf4ocl" class="anchor" href="#how-to-use-cf4ocl"><span class="octicon octicon-link"></span></a>How to use cf4ocl</h1>
+<a name="2-how-to-use-cf4ocl" class="anchor" href="#2-how-to-use-cf4ocl"><span class="octicon octicon-link"></span></a>2. How to use cf4ocl</h1>
+
+<p><a name="dependencies"></a></p>
 
 <h2>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+<a name="21-dependencies" class="anchor" href="#21-dependencies"><span class="octicon octicon-link"></span></a>2.1. Dependencies</h2>
 
 <p>In order to compile cf4ocl and use it in projects, two dependencies are
 required: 1) <a href="http://www.khronos.org/opencl/" title="OpenCL">OpenCL</a>; and, 2) <a href="https://developer.gnome.org/glib/" title="GLib">GLib</a> (v2.32 or newer).</p>
 
+<p><a name="opencl"></a></p>
+
 <h3>
-<a name="opencl" class="anchor" href="#opencl"><span class="octicon octicon-link"></span></a>OpenCL</h3>
+<a name="211-opencl" class="anchor" href="#211-opencl"><span class="octicon octicon-link"></span></a>2.1.1. OpenCL</h3>
 
 <p>The OpenCL headers (for compiling) and shared library (for linking) can
 be installed from the packages offered by different OpenCL vendors such
@@ -167,8 +214,10 @@ the need to specify their location to GCC. However, to actually run an
 OpenCL program it is necessary to have a vendor implementation 
 installed.</p>
 
+<p><a name="glib"></a></p>
+
 <h3>
-<a name="glib" class="anchor" href="#glib"><span class="octicon octicon-link"></span></a>GLib</h3>
+<a name="212-glib" class="anchor" href="#212-glib"><span class="octicon octicon-link"></span></a>2.1.2. GLib</h3>
 
 <p>The simplest way to install <a href="https://developer.gnome.org/glib/" title="GLib">GLib</a> is using the package manager of
 the Linux distribution. For Debian and Ubuntu:</p>
@@ -179,8 +228,10 @@ the Linux distribution. For Debian and Ubuntu:</p>
 <p>It is also advisable to install the <code>libglib2.0-0-dbg</code> or equivalent
 package to allow debugging at the GLib level.</p>
 
+<p><a name="libraryutilitiestestsandexamples"></a></p>
+
 <h2>
-<a name="library-utilities-tests-and-examples" class="anchor" href="#library-utilities-tests-and-examples"><span class="octicon octicon-link"></span></a>Library, utilities, tests and examples</h2>
+<a name="22-library-utilities-tests-and-examples" class="anchor" href="#22-library-utilities-tests-and-examples"><span class="octicon octicon-link"></span></a>2.2. Library, utilities, tests and examples</h2>
 
 <p>Assuming a working development environment with OpenCL and GLib 
 properly setup, to build everything it is simply necessary to run <code>make</code>
@@ -199,11 +250,19 @@ and if GCC can find the OpenCL headers and shared library. If not,
 set the headers location in the <code>CLINCLUDES</code> Makefile variable, and set
 the shared library location in the <code>CLLIBDIR</code> Makefile variable.</p>
 
+<p><a name="usingthelibraryinanewproject"></a></p>
+
 <h2>
-<a name="using-the-library-in-a-new-project" class="anchor" href="#using-the-library-in-a-new-project"><span class="octicon octicon-link"></span></a>Using the library in a new project</h2>
+<a name="23-using-the-library-in-a-new-project" class="anchor" href="#23-using-the-library-in-a-new-project"><span class="octicon octicon-link"></span></a>2.3. Using the library in a new project</h2>
+
+<p>Any of the three elements of the library can be used in a workflow
+without the need to use the others. However, both CL Utils and CL 
+Profiler internally use the GError framework.</p>
+
+<p><a name="compilingandlinking"></a></p>
 
 <h3>
-<a name="compiling-and-linking" class="anchor" href="#compiling-and-linking"><span class="octicon octicon-link"></span></a>Compiling and linking</h3>
+<a name="231-compiling-and-linking" class="anchor" href="#231-compiling-and-linking"><span class="octicon octicon-link"></span></a>2.3.1. Compiling and linking</h3>
 
 <p>When building a program based on cf4ocl (or any OpenCL program) with 
 GCC, it may be necessary to specify the location of the OpenCL headers 
@@ -212,14 +271,14 @@ with the <code>-I</code> flag, and the location of the shared library
 installed from the package manager (e.g. the <code>ocl-icd-opencl-dev</code> 
 package in Debian and Ubuntu), this is usually not required.</p>
 
-<p>In order to <strong>compile</strong> with GLib (required by cf4ocl), the following 
-line should be added to the GCC syntax:</p>
+<p>Additionally, in order to <strong>compile</strong> a program with GLib (required by 
+cf4ocl), the following line should be added to the GCC syntax:</p>
 
 <pre><code>`pkg-config --cflags glib-2.0`
 </code></pre>
 
-<p>In order to <strong>link</strong> with GLib (required by cf4ocl), it is necessary to 
-add the following line to the GCC syntax:</p>
+<p>In order to <strong>link</strong> a program with GLib, it is necessary to add the 
+following line to the GCC syntax:</p>
 
 <pre><code>`pkg-config --libs glib-2.0`
 </code></pre>
@@ -227,31 +286,483 @@ add the following line to the GCC syntax:</p>
 <p>These two lines will expand correctly to the <code>-I</code> and <code>-l</code> flags 
 required for compiling and linking, respectively.</p>
 
-<h3>
-<a name="tutorial" class="anchor" href="#tutorial"><span class="octicon octicon-link"></span></a>Tutorial</h3>
+<p><a name="usingclutils"></a></p>
 
-<p>A tutorial will be available soon. For now take a look at the examples, 
-utilities and tests to see how the library can be used. You can use
-just one part of the library, but both CL Profiler 
-(<a href="https://github.com/FakenMC/cf4ocl/blob/master/clprofiler.c">clprofiler.c</a> 
-and <a href="https://github.com/FakenMC/cf4ocl/blob/master/clprofiler.h">clprofiler.h</a>) 
-and CL Utils (<a href="https://github.com/FakenMC/cf4ocl/blob/master/clutils.c">clutils.c</a>
-and <a href="https://github.com/FakenMC/cf4ocl/blob/master/clutils.h">clutils.h</a>) 
-require the GError framework (<a href="https://github.com/FakenMC/cf4ocl/blob/master/gerrorf.h">gerrorf.h</a>).</p>
+<h3>
+<a name="232-using-cl-utils" class="anchor" href="#232-using-cl-utils"><span class="octicon octicon-link"></span></a>2.3.2. Using CL Utils</h3>
+
+<p>The functions provided by CL Utils aim to facilitate the rapid 
+development and deployment of C programs which use OpenCL. These 
+functions are focused on two key tasks:</p>
+
+<ol>
+<li><p>Setup and tear down of the OpenCL environment, including device,
+context and command queues.</p></li>
+<li><p>Loading, compilation and tear down of OpenCL kernel programs.</p></li>
+</ol><p>These two tasks require very verbose code, with significant repetition 
+between projects. CL Utils wraps these tasks into two functions,
+providing an additional third function for freeing up the allocated
+resources. The OpenCL objects created by CL Utils are available to
+the client programmer at all times through the <code>CLUZone</code> object. 
+CL Utils does not wrap any other OpenCL tasks, such as kernel execution 
+or data transfers, which can be performed directly with the respective 
+OpenCL functions.</p>
+
+<p>The first task is performed with the <code>clu_zone_new</code> function, which
+has the following prototype:</p>
+
+<div class="highlight"><pre><span class="n">CLUZone</span><span class="o">*</span> <span class="nf">clu_zone_new</span><span class="p">(</span>
+    <span class="cm">/* Type of device, e.g. CL_DEVICE_TYPE_CPU, CL_DEVICE_TYPE_GPU, etc. */</span>
+    <span class="n">cl_uint</span> <span class="n">deviceType</span><span class="p">,</span>
+    <span class="cm">/* Number of command queues. */</span>
+    <span class="n">cl_uint</span> <span class="n">numQueues</span><span class="p">,</span>
+    <span class="cm">/* Command queue properties, e.g. CL_QUEUE_PROFILING_ENABLE, etc. */</span>
+    <span class="n">cl_int</span> <span class="n">queueProperties</span><span class="p">,</span>
+    <span class="cm">/* Pointer to a device selector function. */</span>
+    <span class="n">clu_device_selector</span> <span class="n">devSel</span><span class="p">,</span> 
+    <span class="cm">/* Extra arguments for device selector function. */</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">dsExtraArg</span><span class="p">,</span> 
+    <span class="cm">/* GLib's error reporting object (may be ignored). */</span>
+    <span class="n">GError</span> <span class="o">**</span><span class="n">err</span>
+<span class="p">);</span>
+</pre></div>
+
+<p>The returned <code>CLUZone</code> object will contain the context, command queues,
+device information and an uninitialized kernel program. The program is
+initialized with the <code>clu_program_create</code> function as part of the second 
+task. This function has the following prototype:</p>
+
+<div class="highlight"><pre><span class="n">cl_int</span> <span class="nf">clu_program_create</span><span class="p">(</span>
+    <span class="cm">/* The CLUZone object return by the clu_zone_new function. */</span>
+    <span class="n">CLUZone</span><span class="o">*</span> <span class="n">zone</span><span class="p">,</span> 
+    <span class="cm">/* List of files containing the source code for the kernels. */</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">**</span> <span class="n">kernelFiles</span><span class="p">,</span> 
+    <span class="cm">/* Number of kernel files given in the previous parameter. */</span>
+    <span class="n">cl_uint</span> <span class="n">numKernelFiles</span><span class="p">,</span> 
+    <span class="cm">/* Compiler options. */</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">compilerOpts</span><span class="p">,</span> 
+    <span class="cm">/* GLib's error reporting object (may be ignored). */</span>
+    <span class="n">GError</span> <span class="o">**</span><span class="n">err</span>
+<span class="p">);</span>
+</pre></div>
+
+<p>A typical usage pattern of CL Utils in a C program:</p>
+
+<div class="highlight"><pre><span class="n">include</span> <span class="s">"clutils.h"</span>
+
+<span class="p">...</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> 
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">CLUZone</span><span class="o">*</span> <span class="n">zone</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">oclSources</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">"src1.cl"</span><span class="p">,</span> <span class="s">"src2.cl"</span><span class="p">,</span> <span class="s">"moresrc.cl"</span><span class="p">};</span>
+    <span class="p">...</span>
+
+    <span class="cm">/* Get a complete OpenCL environment using a GPU device, one  */</span>
+    <span class="cm">/* command queue, no command queue options, if more than one  */</span> 
+    <span class="cm">/* GPU is available show selection menu to user, and ignore   */</span>
+    <span class="cm">/* error reporting. */</span>
+    <span class="n">zone</span> <span class="o">=</span> <span class="n">clu_zone_new</span><span class="p">(</span><span class="n">CL_DEVICE_TYPE_GPU</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clu_menu_device_selector</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">...</span>
+
+    <span class="cm">/* Create (compile) an OpenCL kernel program using three OpenCL */</span>
+    <span class="cm">/* source files, no compiler options, and ignoring error        */</span>
+    <span class="cm">/* reporting.                                                   */</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">clu_program_create</span><span class="p">(</span><span class="n">zone</span><span class="p">,</span> <span class="n">oclSources</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">...</span>
+
+    <span class="cm">/* Perform OpenCL tasks such as data transfer and kernel execution */</span>
+    <span class="cm">/* using the OpenCL objects (queues, program, context, etc.)       */</span>
+    <span class="cm">/* available within the CLUZone object.                            */</span>
+    <span class="p">...</span>
+
+    <span class="cm">/* Free the CLUZone object and all of the contained OpenCL objects.*/</span>
+    <span class="cm">/* This object should only be released after all OpenCL objects    */</span>
+    <span class="cm">/* not controlled by CL Utils (kernels, events, memory objects)    */</span>
+    <span class="cm">/* are released.                                                   */</span>
+    <span class="n">clu_zone_free</span><span class="p">(</span><span class="n">zone</span><span class="p">);</span>
+
+    <span class="p">...</span>
+
+<span class="p">}</span>
+</pre></div>
+
+<p>The fourth parameter of <code>clu_zone_new</code> is a pointer to a device 
+selector function, which has the following definition:</p>
+
+<div class="highlight"><pre><span class="k">typedef</span> <span class="nf">cl_uint</span> <span class="p">(</span><span class="o">*</span><span class="n">clu_device_selector</span><span class="p">)(</span>
+    <span class="cm">/* Array of available devices and respective information. */</span>
+    <span class="n">CLUDeviceInfo</span><span class="o">*</span> <span class="n">devInfos</span><span class="p">,</span>
+    <span class="cm">/* Number of devices in array. */</span>
+    <span class="n">cl_uint</span> <span class="n">numDevices</span><span class="p">,</span> 
+    <span class="cm">/* Extra arguments to selector function. */</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">extraArg</span>
+<span class="p">);</span>
+</pre></div>
+
+<p>CL Utils provides two ready to use device selector functions:</p>
+
+<ul>
+<li>
+<code>clu_menu_device_selector</code> - If more than one device exists, presents
+a selection menu to the user. If extra argument is given it should be 
+the array index of the preferred device.</li>
+<li>
+<code>clu_info_device_selector</code> - Selects a device by device name, device
+vendor and/or platform name, any/all of which are given in the extra
+argument.</li>
+</ul><p>For other device selection requirements, the client programmer can 
+develop a specific device selector function.</p>
+
+<p><a name="usingclprofiler"></a></p>
+
+<h3>
+<a name="233-using-cl-profiler" class="anchor" href="#233-using-cl-profiler"><span class="octicon octicon-link"></span></a>2.3.3. Using CL Profiler</h3>
+
+<p>The goal of CL Profiler is to provide detailed benchmarking information 
+about OpenCL events such as kernel execution, data transfers, and so on.
+CL Profiler is prepared to handle overlapping events, which usually
+take place when the programmer is trying to optimize its application
+by simultaneously transfer data to and from the OpenCL device and 
+execute kernels, using different command queues.</p>
+
+<p>CL Profiler consists of two files, <code>clprofiler.c</code> and <code>clprofiler.h</code>.
+In order to use CL Profiler in a project, it is necessary to include
+the <code>clprofiler.h</code> header file.</p>
+
+<p>For the purpose of this explanation, we will consider that two command 
+queues are being used:</p>
+
+<div class="highlight"><pre><span class="n">cl_command_queue</span> <span class="n">queue0</span><span class="p">;</span> <span class="cm">/* Used for host-device data transfer. */</span>
+<span class="n">cl_command_queue</span> <span class="n">queue1</span><span class="p">;</span> <span class="cm">/* Used for kernel execution. */</span>
+</pre></div>
+
+<p>Additionally, we will consider the following OpenCL events:</p>
+
+<div class="highlight"><pre><span class="n">cl_event</span> <span class="n">ev_transf_in</span><span class="p">;</span>  <span class="cm">/* Transfer data from host to device. */</span>
+<span class="n">cl_event</span> <span class="n">ev_kernel_A_1</span><span class="p">;</span> <span class="cm">/* Execute kernel A on device. */</span>
+<span class="n">cl_event</span> <span class="n">ev_kernel_B</span><span class="p">;</span>   <span class="cm">/* Execute kernel B on device. */</span>
+<span class="n">cl_event</span> <span class="n">ev_kernel_A_2</span><span class="p">;</span> <span class="cm">/* Execute kernel A on device again. */</span>
+<span class="n">cl_event</span> <span class="n">ev_transf_out</span><span class="p">;</span> <span class="cm">/* Transfer data from device to host. */</span>
+</pre></div>
+
+<p>The <code>ProfCLProfile</code> structure forms the basis of CL Profiler. It can:
+1) measure the total elapsed time of the application (or the relevant 
+part of the application); and, 2) keep track of the device time required
+by the OpenCL events. The following instruction creates a new 
+<code>ProfCLProfile</code> structure:</p>
+
+<div class="highlight"><pre><span class="cm">/* Create a new ProfCLProfile structure. */</span>
+<span class="n">ProfCLProfile</span><span class="o">*</span> <span class="n">profile</span> <span class="o">=</span> <span class="n">profcl_profile_new</span><span class="p">();</span>
+</pre></div>
+
+<p>In order to start measuring the relevant part of the application, the
+following instruction should be issued:</p>
+
+<div class="highlight"><pre><span class="cm">/* Start basic timming / profiling. */</span>
+<span class="n">profcl_profile_start</span><span class="p">(</span><span class="n">profile</span><span class="p">);</span>
+</pre></div>
+
+<p>At this time, the typical OpenCL application workflow, such as 
+transferring data and executing kernels, should take place. The above 
+defined events must be associated with the respective <code>clEnqueue*</code> 
+OpenCL functions in order to be later analyzed. A typical workflow 
+may be finalized with the following instructions:</p>
+
+<div class="highlight"><pre><span class="cm">/* Finish all pending OpenCL operations. */</span>
+<span class="n">clFinish</span><span class="p">(</span><span class="n">queue0</span><span class="p">);</span>
+<span class="n">clFinish</span><span class="p">(</span><span class="n">queue1</span><span class="p">);</span>
+</pre></div>
+
+<p>Profiling should be stopped at this point.</p>
+
+<div class="highlight"><pre><span class="n">profcl_profile_stop</span><span class="p">(</span><span class="n">profile</span><span class="p">);</span> 
+</pre></div>
+
+<p>Now the events can be added to the profiler structure. The
+<code>profcl_profile_add</code> function uses the second parameter (a string)
+as a key to differentiate between events. Thus, if the same key
+is given for different OpenCL events, CL Profiler will consider 
+it to be the same <em>semantic</em> event. This can be useful for aggregating
+execution times of events which occur innumerous times in a cyclic 
+fashion (in a <em>for</em> loop, for example). </p>
+
+<div class="highlight"><pre><span class="cm">/* Add events to be profiled/analyzed. */</span>
+<span class="n">profcl_profile_add</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="s">"Transfer data to device"</span><span class="p">,</span> <span class="n">ev_transf_in</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">profcl_profile_add</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="s">"Kernel A"</span><span class="p">,</span> <span class="n">ev_kernel_A_1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">profcl_profile_add</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="s">"Kernel B"</span><span class="p">,</span> <span class="n">ev_kernel_B</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">profcl_profile_add</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="s">"Kernel A"</span><span class="p">,</span> <span class="n">ev_kernel_A_2</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">profcl_profile_add</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="s">"Transfer data from device"</span><span class="p">,</span> <span class="n">ev_transf_out</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+
+<p>The above code will consider OpenCL events <code>ev_kernel_A_1</code> and <code>ev_kernel_A_2</code>
+to be the same semantic event because the same key, string <em>Kernel A</em>, is
+used. Thus, the total execution time for the semantic event <em>Kernel A</em> will 
+be the sum of respective two OpenCL events. CL Profiler can even
+determine overlaps of a semantic event with itself (i.e., two overlapping
+OpenCL events which are added for analysis with the same key).</p>
+
+<p>After all the events are added, it is necessary to instruct CL 
+Profiler to perform the required calculations in order to determine
+the absolute and relative times of all events, and how these correlate
+with the total elapsed time of the relevant part of the application.</p>
+
+<div class="highlight"><pre><span class="n">profcl_profile_aggregate</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+
+<p>Finally, the complete benchmarking info can be printed:</p>
+
+<div class="highlight"><pre><span class="n">profcl_print_info</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">PROFCL_AGGEVDATA_SORT_TIME</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+
+<p>Two detailed tables will be printed: one for individual events (sorted by 
+name or execution time), and another showing event overlaps, if any occurred.</p>
+
+<p>Only at this time should the OpenCL events be freed.</p>
+
+<div class="highlight"><pre><span class="n">clReleaseEvent</span><span class="p">(</span><span class="n">ev_transf_in</span><span class="p">);</span>
+<span class="n">clReleaseEvent</span><span class="p">(</span><span class="n">ev_kernel_A_1</span><span class="p">);</span>
+<span class="n">clReleaseEvent</span><span class="p">(</span><span class="n">ev_kernel_B</span><span class="p">);</span>
+<span class="n">clReleaseEvent</span><span class="p">(</span><span class="n">ev_kernel_A_2</span><span class="p">);</span>
+<span class="n">clReleaseEvent</span><span class="p">(</span><span class="n">ev_transf_out</span><span class="p">);</span>
+</pre></div>
+
+<p>The last parameter of some of the <code>profcl_*</code> functions is used for error 
+handling and to obtain detailed error messages if an error occurs. By 
+passing <code>NULL</code>, the programmer choses to ignore that feature. Such approach 
+is not critical because all of the error-prone <code>profcl_*</code> functions also return
+their execution status code. No error handling is performed in this 
+explanation, though.</p>
+
+<p>For map events, CL Profiler provides the <code>profcl_profile_add_composite</code>
+function, which accepts two OpenCL events, one relative to the <em>map</em>
+operation, and the other to the <em>unmap</em> operation. The function uses
+the start instant of the <em>map</em> event, and the <em>end</em> instant of the
+<em>unmap</em> event, in order to build a composite semantic event.</p>
+
+<p><a name="usinggerrorframeworkgerrorf"></a></p>
+
+<h3>
+<a name="234-using-gerror-framework-gerrorf" class="anchor" href="#234-using-gerror-framework-gerrorf"><span class="octicon octicon-link"></span></a>2.3.4. Using GError Framework (GErrorF)</h3>
+
+<p>The main purpose of GErrorF is to provide error handling constructs to 
+CL Utils and CL Profiler. No knowledge of GErrorF is required to use
+CL Utils and/or CL Profiler. However, because it is sufficiently generic 
+to be used in any C application, a specific description is warranted.</p>
+
+<p>GErrorF uses GLib's <code>GError</code> object for function error reporting. This
+explanation assumes some familiarity with 
+<a href="https://developer.gnome.org/glib/2.32/glib-Error-Reporting.html" title="GLib Error Reporting">GLib's error reporting</a>.</p>
+
+<p>GErrorF is defined by two macros in <code>gerrorf.h</code>:</p>
+
+<ul>
+<li>
+<code>gef_if_error_create_goto</code> - Catches errors from non-GError aware
+functions.</li>
+<li>
+<code>gef_if_error_goto</code> - Catches errors from GError aware functions.</li>
+</ul><p>GErrorF establishes an error handling methodology for C programs not
+entirely dissimilar to the pattern used in Linux kernel development. 
+Any function producing recoverable runtime errors, from <code>main</code> to 
+functions located deeper in the call stack, can benefit from this 
+approach. The general usage of GErrorF is as follows:</p>
+
+<div class="highlight"><pre><span class="n">include</span> <span class="s">"gerrorf.h"</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> 
+<span class="p">{</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* Must initialize every allocable pointers and objects */</span>
+    <span class="cm">/* to NULL.                                             */</span>
+    <span class="kt">int</span> <span class="n">some_vector</span><span class="o">*</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="cm">/* GError object. */</span>
+    <span class="n">GError</span> <span class="o">*</span><span class="n">err</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="cm">/* Function return status. */</span>
+    <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">SUCCESS_CODE</span><span class="p">;</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* Call a GError aware function (defined bellow). */</span>
+    <span class="n">some_function</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">);</span>
+
+    <span class="cm">/* Catch possible error in GError-aware function. In this */</span>
+    <span class="cm">/* case the GError object is initialized by the called    */</span>
+    <span class="cm">/* function.                                              */</span>
+    <span class="n">gef_if_error_goto</span><span class="p">(</span>
+        <span class="n">err</span><span class="p">,</span>              <span class="cm">/* GError object. */</span>
+        <span class="n">SOME_ERROR_CODE</span><span class="p">,</span>  <span class="cm">/* Error code to set in status. */</span>
+        <span class="n">status</span><span class="p">,</span>           <span class="cm">/* Function return status. */</span>
+        <span class="n">error_handler</span>     <span class="cm">/* Label to goto in case of error. */</span>
+    <span class="p">);</span>
+
+    <span class="cm">/* In the previous function it is possible to replace an app */</span>
+    <span class="cm">/* specific error code with GErrorF special constants        */</span>
+    <span class="cm">/* GEF_USE_STATUS and GEF_USE_GERROR. The former leaves the  */</span>
+    <span class="cm">/* status variable untouched (useful for cases where the     */</span>
+    <span class="cm">/* function itself returns a usable int status), while the   */</span>
+    <span class="cm">/* later sets status to the error code set in the GError     */</span>
+    <span class="cm">/* object. */</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* Call a non-GError aware function. */</span>
+    <span class="n">some_vector</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">SOME_SIZE</span><span class="p">);</span>
+
+    <span class="cm">/* Catch possible error in non-GError aware function. */</span>
+    <span class="n">gef_if_error_create_goto</span><span class="p">(</span>
+        <span class="n">err</span><span class="p">,</span>                    <span class="cm">/* GError object.                  */</span>
+        <span class="n">SOME_QUARK_ERROR</span><span class="p">,</span>       <span class="cm">/* GLib GQuark identifier.         */</span>
+        <span class="n">some_vector</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">,</span>    <span class="cm">/* Error condition.                */</span>
+        <span class="n">SOME_ERROR_CODE</span><span class="p">,</span>        <span class="cm">/* Error code to set in err.       */</span>
+        <span class="n">error_handler</span><span class="p">,</span>          <span class="cm">/* Label to goto in case of error. */</span>
+        <span class="s">"Unable to alloc. mem."</span> <span class="cm">/* Error msg to set in err.        */</span>
+    <span class="p">);</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* If we get here, there was no error, goto cleanup. */</span>
+    <span class="n">g_assert</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>  <span class="cm">/* Make sure err is NULL. */</span>
+    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>           <span class="cm">/* Goto the cleanup section. */</span>
+
+<span class="nl">error_handler:</span>
+    <span class="cm">/* If we got here there was an error, verify that it is so. */</span>
+    <span class="n">g_assert</span> <span class="p">(</span><span class="n">err</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="cm">/* Print error message. */</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Error message: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">err</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">);</span>
+    <span class="cm">/* Make sure function status contains an error code. */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="n">SUCCESS_CODE</span><span class="p">)</span> <span class="n">status</span> <span class="o">=</span> <span class="n">err</span><span class="o">-&gt;</span><span class="n">code</span><span class="p">;</span> 
+    <span class="cm">/* Free the GError object. */</span>
+    <span class="n">g_error_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+
+<span class="nl">cleanup:</span>    
+    <span class="cm">/* Free any allocated memory. */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">some_vector</span><span class="p">)</span> <span class="n">free</span><span class="p">(</span><span class="n">some_vector</span><span class="p">);</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* Return program status. */</span>
+    <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">...</span>
+
+<span class="cm">/* This function is GError-aware, and will initialize the GError */</span>
+<span class="cm">/* object if an error occurs. The GError object usually comes    */</span>
+<span class="cm">/* as the last parameter.                                        */</span>
+<span class="kt">void</span> <span class="n">some_function</span><span class="p">(</span><span class="n">some</span> <span class="n">params</span><span class="p">,</span> <span class="n">GError</span><span class="o">**</span> <span class="n">err</span><span class="p">)</span> 
+<span class="p">{</span>
+
+    <span class="p">...</span>
+
+    <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">"somefile.txt"</span><span class="p">;</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* Try to open a file. This function is not GError aware. */</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+
+    <span class="cm">/* Catch possible error in non-GError aware function. */</span>
+    <span class="n">gef_if_error_create_goto</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">err</span><span class="p">,</span>                     <span class="cm">/* GError object.                  */</span>
+        <span class="n">SOME_QUARK_ERROR</span><span class="p">,</span>         <span class="cm">/* GLib GQuark identifier.         */</span>
+        <span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">,</span>               <span class="cm">/* Error condition.                */</span>
+        <span class="n">SOME_ERROR_CODE</span><span class="p">,</span>          <span class="cm">/* Error code to set in err.       */</span>
+        <span class="n">error_handler</span><span class="p">,</span>            <span class="cm">/* Label to goto in case of error. */</span>
+        <span class="s">"Unable to open file %s"</span><span class="p">,</span> <span class="cm">/* Error msg to set in err.        */</span>
+        <span class="n">filename</span>                  <span class="cm">/* Extra args for error msg.       */</span>
+    <span class="p">);</span>
+
+    <span class="p">...</span>
+
+    <span class="cm">/* If we got here, everything is OK.                          */</span>
+    <span class="cm">/* It's good practice to check if err is NULL (caller doesn't */</span>
+    <span class="cm">/* care about error reporting OR if a non-null err is         */</span>
+    <span class="cm">/* pointing to NULL (i.e. no error was reported).             */</span>
+    <span class="n">g_assert</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="o">*</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="cm">/* Goto finish label, ignoring the error handling section.    */</span>
+    <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
+
+<span class="nl">error_handler:</span>
+    <span class="cm">/* If we got here there was an error, verify that it is so,   */</span>
+    <span class="cm">/* i.e. either the caller doesn't care about error reporting, */</span>
+    <span class="cm">/* in which case err is NULL, OR a non-null err is in fact    */</span>
+    <span class="cm">/* pointing to an initialized GError object.                  */</span>
+    <span class="n">g_assert</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="o">*</span><span class="n">err</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="cm">/* Run any other error handling code. */</span>
+    <span class="p">...</span>
+
+<span class="nl">finish:</span> 
+
+    <span class="cm">/* Close the file, if open. */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+
+    <span class="cm">/* Perform additional required cleanup (free's and so on). */</span>
+    <span class="p">...</span>
+
+    <span class="cm">/* Bye. */</span>
+    <span class="k">return</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+</pre></div>
+
+<p>As can be observed, GErrorF enforces a strict programming pattern, 
+which requires that complying functions follow a set of rules:</p>
+
+<ul>
+<li>Define all pointers and objects in the beginning of the function 
+and initialize them to NULL.</li>
+<li>Define a pointer to a GError object and set it to NULL.</li>
+<li>Always test for errors after calls to error throwing functions
+with <code>gef_if_error_create_goto</code> (non-GError aware functions) or
+<code>gef_if_error_goto</code> (GError aware functions). If an error occurs
+program execution will jump to the error handling block.</li>
+<li>Use the following pattern at the end of the function:
+
+<ul>
+<li>goto cleanup</li>
+<li>error handling block</li>
+<li>cleanup: perform clean up</li>
+<li>return (possibly with a status code)</li>
+</ul>
+</li>
+</ul><p>This pattern avoids many bugs and makes error catching and handling
+possible in C. However it is not to everyone's taste, and is thus
+a completely optional aspect of cf4ocl.</p>
+
+<p><a name="generatingtheapidocumentation"></a></p>
 
 <h2>
-<a name="generating-the-api-documentation" class="anchor" href="#generating-the-api-documentation"><span class="octicon octicon-link"></span></a>Generating the API documentation</h2>
+<a name="24-generating-the-api-documentation" class="anchor" href="#24-generating-the-api-documentation"><span class="octicon octicon-link"></span></a>2.4. Generating the API documentation</h2>
 
-<p>The API documentation can be generated with <a href="http://www.doxygen.org/%E2%80%8E" title="Doxygen">Doxygen</a> (version 1.8 or
-newer). In the cf4ocl directory run:</p>
+<p>The API documentation can be generated with <code>make</code> if <a href="http://www.doxygen.org/%E2%80%8E" title="Doxygen">Doxygen</a> 
+(version 1.8 or newer) is installed. In the cf4ocl directory run:</p>
 
-<pre><code>$ doxygen
+<pre><code>$ make docs
 </code></pre>
 
-<p>The documentation will be generated in the <code>./doc</code> folder.</p>
+<p>The documentation will be generated in the <code>./doc</code> folder. The direct
+use of the <code>doxygen</code> command should be avoided because 
+<a href="http://www.stack.nl/%7Edimitri/doxygen/manual/markdown.html" title="Doxygen Markdown">Doxygen's markdown</a> is not 100% compatible with the 
+<a href="https://help.github.com/articles/github-flavored-markdown" title="Github Flavored Markdown">GitHub Flavored Markdown</a> used in this document. When building 
+the documentation with <code>make</code>, the required conversion is performed 
+first.</p>
+
+<p><a name="otherusefulcframeworks/utilitiesforopencl"></a></p>
 
 <h1>
-<a name="other-useful-c-frameworksutilities-for-opencl" class="anchor" href="#other-useful-c-frameworksutilities-for-opencl"><span class="octicon octicon-link"></span></a>Other useful C frameworks/utilities for OpenCL</h1>
+<a name="3-other-useful-c-frameworksutilities-for-opencl" class="anchor" href="#3-other-useful-c-frameworksutilities-for-opencl"><span class="octicon octicon-link"></span></a>3. Other useful C frameworks/utilities for OpenCL</h1>
 
 <p>If cf4ocl does not meet your requirements, take a look at the following
 projects:</p>
