@@ -62,7 +62,7 @@ int main(int argc, char ** argv) {
 	cl_command_queue_properties cqpaux;
 	
 	/* Avoid compiler warning. */
-	argv = argv;
+	(void) argv;
 
 	/* Get number of platforms. */
 	status = clGetPlatformIDs(0, NULL, &numPlatforms);
@@ -159,7 +159,7 @@ int main(int argc, char ** argv) {
 				status = clGetDeviceInfo(devices[j], CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, sizeof(ulongaux), &ulongaux, NULL);
 				gef_if_error_create_goto(err, CLU_UTILS_ERROR, CL_SUCCESS != status, status, error_handler, "OpenCL error %d: unable to get maximum constant buffer size.", status);
 				
-				printf("\t           Max. constant buffer size: %ld Kb\n", ulongaux / 1024l);
+				printf("\t           Max. constant buffer size: %lu Kb\n", (unsigned long) ulongaux / 1024l);
 
 				/* Device endianess.*/
 				status = clGetDeviceInfo(devices[j], CL_DEVICE_ENDIAN_LITTLE, sizeof(boolaux), &boolaux, NULL);

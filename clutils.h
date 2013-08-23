@@ -28,10 +28,15 @@
 #ifndef CLUTILS_H
 #define CLUTILS_H
 
+#ifdef __APPLE__
+#include <OpenCL/cl.h>
+#else
+#include <CL/cl.h>
+#endif
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <CL/cl.h>
 #include <glib.h>
 #include "gerrorf.h"
 

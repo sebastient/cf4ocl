@@ -29,6 +29,8 @@
 
 #ifdef CLPROF_TEST
 	#include "tests/test_profiler.h"
+#elif __APPLE__
+    #include <OpenCL/cl.h>
 #else
 	#include <CL/cl.h>
 #endif
